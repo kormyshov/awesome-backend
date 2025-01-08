@@ -48,7 +48,7 @@ jobs:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           service-account: 'ajei79vbd2r4mi7pj600'
           folder-id: 'b1g34n0j9lktsmu9ijjf'
-          function-name: 'vocabularome-gtd-bot'
+          function-name: 'awesome-backend'
           runtime: 'python39'
           memory: '128Mb'
           execution_timeout: '3'
