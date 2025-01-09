@@ -2,6 +2,8 @@ from utils import validate_telegram_data
 
 
 def handler(event, context):
+    print(event)
+    print(context)
 
     print('Validate data:', event['queryStringParameters'].get('validate', ''))
     print('TG Validation:', validate_telegram_data(event['queryStringParameters'].get('validate', '')))
@@ -21,9 +23,6 @@ def handler(event, context):
                         }
                     ''',
                 }
-
-    print(event)
-    print(context)
 
     return {
         'statusCode': 200,
