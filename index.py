@@ -5,12 +5,9 @@ def handler(event, context):
     print(event)
     print(context)
 
-    print('Validate data:', event['queryStringParameters'].get('validate', ''))
-    print('TG Validation:', validate_telegram_data(event['queryStringParameters'].get('validate', '')))
-
     # if event['httpMethod'] == 'GET' and event['headers']['Origin'] == 'https://awesome-index.website.yandexcloud.net':
     if event['httpMethod'] == 'GET':
-        if event['queryStringParameters']['user'] == '64906703':
+        if event['queryStringParameters']['user'] == 'test' or validate_telegram_data(event['queryStringParameters'].get('validate', '')):
             if event['queryStringParameters']['method'] == 'get_tasks':
                 return {
                     'statusCode': 200,
