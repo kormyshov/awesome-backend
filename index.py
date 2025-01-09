@@ -3,6 +3,7 @@ from utils import validate_telegram_data
 
 def handler(event, context):
 
+    print('Validate data:', event['queryStringParameters'].get('validate', ''))
     print('TG Validation:', validate_telegram_data(event['queryStringParameters'].get('validate', '')))
 
     # if event['httpMethod'] == 'GET' and event['headers']['Origin'] == 'https://awesome-index.website.yandexcloud.net':
