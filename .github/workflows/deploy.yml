@@ -55,9 +55,9 @@ jobs:
           entrypoint: 'index.handler'
           environment: |
             BOT_TOKEN=${{ secrets.BOT_TOKEN }}
-            YDB_ENDPOINT=${{ secrets.YDB_ENDPOINT }}
-            YDB_DATABASE=${{ secrets.YDB_DATABASE }}
-            USE_METADATA_CREDENTIALS=1
+            AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+            USER_STORAGE_URL=${{ secrets.USER_STORAGE_URL }}
+            AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           include: |
             .
           exclude: |

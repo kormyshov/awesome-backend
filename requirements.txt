@@ -1,2 +1,3 @@
 pytest
 ydb==2.5.0
+boto3
