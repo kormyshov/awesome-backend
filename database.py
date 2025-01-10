@@ -1,4 +1,5 @@
 import boto3
+from boto3.dynamodb.conditions import Key
 from pickle import dumps, loads
 
 from config import Config
@@ -19,15 +20,15 @@ class Database(AbstractBase):
 
     def get_user_info(self, user_id: str) -> UserORM:
         table_users = self.dynamodb.Table('users')
-        response = table_users.get_item(Key={'id': user_id})
+        response = table_users.get_item(KeyConditionExpression=Key('id').eq(user_id))
 
-        if 'Item' not in response:
+        if not response['Items']:
             raise UserDoesntExistInDB
 
         orm = UserORM(
             id=user_id,
-            tasks=loads(bytes(response['Item'].get('tasks', dumps([])))),
-            projects=loads(bytes(response['Item'].get('projects', dumps([])))),
+            tasks=loads(bytes(response['Items'][0].get('tasks', dumps([])))),
+            projects=loads(bytes(response['Items'][0].get('projects', dumps([])))),
         )
         return orm
 
@@ -52,7 +53,7 @@ class Database(AbstractBase):
             AttributeDefinitions=[
                 {
                     'AttributeName': 'id',
-                    'AttributeType': 'N',
+                    'AttributeType': 'S',
                 },
             ],
         )
