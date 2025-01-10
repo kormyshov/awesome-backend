@@ -20,7 +20,7 @@ class Database(AbstractBase):
 
     def get_user_info(self, user_id: str) -> UserORM:
         table_users = self.dynamodb.Table('users')
-        response = table_users.get_item(Key={'id': {'S': user_id}})
+        response = table_users.get_item(Key={'id': user_id})
 
         if 'Item' not in response:
             raise UserDoesntExistInDB
