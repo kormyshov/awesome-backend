@@ -18,3 +18,7 @@ def validate_telegram_data(data: str) -> bool:
     if hash == '' or auth_date == -1:
         return False
     return hmac.new(Config.SECRET_KEY, '\n'.join(sorted_params).encode(), hashlib.sha256).hexdigest() == hash
+
+
+def validate_init_db(user: str) -> bool:
+    return Config.BOT_TOKEN == user
