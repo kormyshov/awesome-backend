@@ -1,4 +1,5 @@
 import boto3
+from pickle import dumps, loads
 
 from config import Config
 
@@ -25,8 +26,8 @@ class Database(AbstractBase):
 
         orm = UserORM(
             id=user_id,
-            tasks=response['Item'].get('tasks', []),
-            projects=response['Item'].get('projects', []),
+            tasks=loads(bytes(response['Item'].get('tasks', dumps([])))),
+            projects=loads(bytes(response['Item'].get('projects', dumps([])))),
         )
         return orm
 
@@ -34,8 +35,8 @@ class Database(AbstractBase):
         table_users = self.dynamodb.Table('users')
         item = {
             'id': user.id,
-            'tasks': user.tasks,
-            'projects': user.projects,
+            'tasks': dumps(user.tasks),
+            'projects': dumps(user.projects),
         }
         table_users.put_item(Item=item)
 

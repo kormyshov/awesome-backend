@@ -3,6 +3,7 @@ from utils import (
     validate_init_db,
 )
 from database import Database
+from user import User
 
 
 def handler(event, context):
@@ -17,18 +18,19 @@ def handler(event, context):
             db.create_tables()
 
         if event['queryStringParameters']['user'] == 'test' or validate_telegram_data(event['queryStringParameters'].get('validate', '')):
+            user = User(event['queryStringParameters']['user'], db)
             if event['queryStringParameters']['method'] == 'get_tasks':
                 return {
                     'statusCode': 200,
                     'body': '''
                         {
-                            "projects": [{"id": "1", "projectName": "Написать таск-менеджер", "projectDescription": "Не отвлекайся", "projectStatus": "ACTIVE"}], 
-                            "tasks": [
-                                {"id": "2", "taskName": "Сделать бэк", "taskDescription": "Нормальный, а не то, что сейчас", "isChecked": false, "taskStatus": ""}
-                            ]
+                            "projects": ''' + user.get_projects_str() + ''', 
+                            "tasks": ''' + user.get_tasks_str() + '''
                         }
                     ''',
                 }
+
+            # user.save()
 
     return {
         'statusCode': 200,
