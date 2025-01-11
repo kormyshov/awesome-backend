@@ -43,6 +43,7 @@ class User:
         return json.dumps(self.tasks)
 
     def set_tasks_str(self, tasks: str) -> None:
+        self.load()
         self.tasks = json.loads(tasks)
 
     def get_projects_str(self) -> str:
@@ -50,4 +51,5 @@ class User:
         return json.dumps(self.projects)
 
     def set_projects_str(self, projects: str) -> None:
+        self.load()
         self.projects = json.loads(projects)
