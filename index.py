@@ -33,11 +33,10 @@ def handler(event, context):
 
             if event['queryStringParameters']['method'] == 'set_tasks':
                 user.set_tasks_str(base64.b64decode(event['body']).decode("utf-8"))
-                print(user.get_tasks_str())
-                # user.save()
+                user.save()
 
             if event['queryStringParameters']['method'] == 'set_projects':
-                user.set_projects_str(event['queryStringParameters']['projects'])
+                user.set_projects_str(base64.b64decode(event['body']).decode("utf-8"))
                 user.save()
 
     return {
