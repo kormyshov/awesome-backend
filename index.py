@@ -1,3 +1,4 @@
+import base64
 from utils import (
     validate_telegram_data,
     validate_init_db,
@@ -31,7 +32,7 @@ def handler(event, context):
                 }
 
             if event['queryStringParameters']['method'] == 'set_tasks':
-                user.set_tasks_str(event['body'])
+                user.set_tasks_str(base64.b64decode(event['body']).decode("utf-8"))
                 print(user.get_tasks_str())
                 # user.save()
 
