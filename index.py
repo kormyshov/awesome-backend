@@ -34,6 +34,10 @@ def handler(event, context):
                 user.set_tasks_str(event['queryStringParameters']['tasks'])
                 user.save()
 
+            if event['queryStringParameters']['method'] == 'set_projects':
+                user.set_tasks_str(event['queryStringParameters']['projects'])
+                user.save()
+
     return {
         'statusCode': 200,
         'body': '{"projects": [], "tasks": []}',
