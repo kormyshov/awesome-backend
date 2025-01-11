@@ -30,7 +30,9 @@ def handler(event, context):
                     ''',
                 }
 
-            # user.save()
+            if event['queryStringParameters']['method'] == 'set_tasks':
+                user.set_tasks_str(event['queryStringParameters']['tasks'])
+                user.save()
 
     return {
         'statusCode': 200,

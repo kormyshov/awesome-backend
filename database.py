@@ -1,5 +1,4 @@
 import boto3
-from boto3.dynamodb.conditions import Key
 from pickle import dumps, loads
 
 from config import Config
