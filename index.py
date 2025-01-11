@@ -13,7 +13,7 @@ def handler(event, context):
     print(context)
 
     # if event['httpMethod'] == 'GET' and event['headers']['Origin'] == 'https://awesome-index.website.yandexcloud.net':
-    if event['httpMethod'] == 'GET':
+    if event['httpMethod'] == 'GET' or event['httpMethod'] == 'POST':
         if event['queryStringParameters']['method'] == 'init_db' and validate_init_db(event['queryStringParameters']['user']):
             db.create_tables()
 
@@ -31,8 +31,9 @@ def handler(event, context):
                 }
 
             if event['queryStringParameters']['method'] == 'set_tasks':
-                user.set_tasks_str(event['queryStringParameters']['tasks'])
-                user.save()
+                user.set_tasks_str(event['queryStringParameters']['body'])
+                print(user.get_tasks_str())
+                # user.save()
 
             if event['queryStringParameters']['method'] == 'set_projects':
                 user.set_projects_str(event['queryStringParameters']['projects'])
