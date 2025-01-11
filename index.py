@@ -31,7 +31,7 @@ def handler(event, context):
                 }
 
             if event['queryStringParameters']['method'] == 'set_tasks':
-                user.set_tasks_str(event['queryStringParameters']['body'])
+                user.set_tasks_str(event['body'])
                 print(user.get_tasks_str())
                 # user.save()
 
