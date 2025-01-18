@@ -5,3 +5,4 @@ class UserORM(NamedTuple):
     id: str
     tasks: List
     projects: List
+    contacts: List

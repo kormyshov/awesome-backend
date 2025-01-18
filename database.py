@@ -28,6 +28,7 @@ class Database(AbstractBase):
             id=user_id,
             tasks=loads(bytes(response['Item'].get('tasks', dumps([])))),
             projects=loads(bytes(response['Item'].get('projects', dumps([])))),
+            contacts=loads(bytes(response['Item'].get('contacts', dumps([])))),
         )
         return orm
 
@@ -37,6 +38,7 @@ class Database(AbstractBase):
             'id': user.id,
             'tasks': dumps(user.tasks),
             'projects': dumps(user.projects),
+            'contacts': dumps(user.contacts),
         }
         table_users.put_item(Item=item)
 

@@ -12,12 +12,14 @@ class User:
         self.loaded: bool = False
         self.tasks: List = []
         self.projects: List = []
+        self.contacts: List = []
 
     def __str__(self) -> str:
-        return 'User(id: {}, tasks: {}, projects: {})'.format(
+        return 'User(id: {}, tasks: {}, projects: {}, contacts: {})'.format(
             self.id,
             str(self.tasks),
             str(self.projects),
+            str(self.contacts),
         )
 
     def load(self) -> None:
@@ -26,6 +28,7 @@ class User:
                 response: UserORM = self.database.get_user_info(self.id)
                 self.tasks = response.tasks
                 self.projects = response.projects
+                self.contacts = response.contacts
             except UserDoesntExistInDB:
                 pass
 
@@ -36,6 +39,7 @@ class User:
             id=self.id,
             tasks=self.tasks,
             projects=self.projects,
+            contacts=self.contacts,
         ))
 
     def get_tasks_str(self) -> str:
@@ -53,3 +57,11 @@ class User:
     def set_projects_str(self, projects: str) -> None:
         self.load()
         self.projects = json.loads(projects)
+
+    def get_contacts_str(self) -> str:
+        self.load()
+        return json.dumps(self.contacts)
+
+    def set_contacts_str(self, contacts: str) -> None:
+        self.load()
+        self.contacts = json.loads(contacts)
