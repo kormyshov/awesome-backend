@@ -60,7 +60,7 @@ class User:
 
     def get_contacts_str(self) -> str:
         self.load()
-        return json.dumps(self.contacts)
+        return json.dumps(filter(lambda c: c['status'] == 'ACTIVE', self.contacts))
 
     def set_contacts_str(self, contacts: str) -> None:
         self.load()
